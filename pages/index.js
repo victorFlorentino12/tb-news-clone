@@ -1,6 +1,4 @@
 function home() {
-  return (
-  <h1>oi</h1>
-)
+  return console.log("oi");
 }
-export default home 
+export default home;
