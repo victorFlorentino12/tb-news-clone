@@ -8,14 +8,16 @@ async function status(request, response) {
   const databaseMaxConnectionNumber = Number(
     databaseMaxConnection.rows[0].max_connections,
   );
-
-  const databaseUseConection = await database.query(
-    "SELECT COUNT(*) FROM pg_stat_activity WHERE datname = 'local_db';",
-  );
+  const databaseName = process.env.POSTGRES_DB;
+  console.log(databaseName);
+  const databaseUseConection = await database.query({
+    text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1",
+    values: [databaseName],
+  });
   const databaseUseConectionNumber = parseInt(
     databaseUseConection.rows[0].count,
   );
-
+  console.log(databaseUseConection.rows[0].count);
   const updateAt = new Date().toISOString();
   return response.status(200).json({
     update_at: updateAt,
