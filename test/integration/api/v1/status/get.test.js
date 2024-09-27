@@ -19,5 +19,4 @@ test("ensure route status it is working properly", async () => {
 
   const dataStub = new Date(responseBody.update_at).toISOString();
   expect(responseBody.update_at).toEqual(dataStub);
-  console.log(responseBody);
 });
